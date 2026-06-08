@@ -1,37 +1,28 @@
 <!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org"> <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ホーム</title>
 </head>
 <body>
     <div th:replace="~{fragments/style_layout :: header_fragment}"></div>
 
+    <h2>ブログ一覧</h2>
 
-  <h2>ブログ一覧</h2>
-
-  <p th:if="${#lists.isEmpty(books)}">記事がまだ登録されていません。</p>
-  
-  <table th:unless="${#lists.isEmpty(books)}">
-    <!-- <thead>
-      <tr>
-        <th>タイトル</th>
-        <th>価格</th>
-        <th>在庫</th>
-      </tr>
-    </thead>
-    <tbody> -->
-      <!-- <tr th:each="book : ${books}" th:class="${book.stock == 0} ? 'sold-out' : ''">
-        <td>
-          <a th:href="@{/books/{id}(id=${book.id})}" th:text="${book.title}">こころ</a>
-        </td>
-        <td>
-          <span th:text="${book.price}">473</span>円
-        </td>
-        <td th:text="${book.stock}">5</td>
-      </tr> -->
-    </tbody>
-  </table> </body>
-</html>
+    <p th:if="${#lists.isEmpty(blogs)}">記事がまだ登録されていません。</p>
     
+    <table th:unless="${#lists.isEmpty(blogs)}">
+        <tbody>
+        <div class="card-grid">
+        <div class="card">
+            <tr th:each="blog : ${blogs}">
+                <td><a th:href="@{/blogs/{id}(id=${blog.id})}" th:text="${blog.title}">タイトル</a></td>
+                <td th:text="${blog.content}">本文の一部分</td>
+                <td th:text="${blog.author}">作者</td>
+            </tr>
+          </div>
+        </div>
+        </tbody>
+    </table> 
+</body>
+</html>

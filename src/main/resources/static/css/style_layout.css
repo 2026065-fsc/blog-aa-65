@@ -1,0 +1,127 @@
+/*===========
+   全体設計
+===========*/
+body {
+    font-family: sans-serif;
+    color: #202124;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa; 
+}
+
+/* 本文領域：最大幅 640px、中央寄せ、内側に padding 24px */
+.container {
+    max-width: 640px;
+    margin: 0 auto;       /* 中央寄せ */
+    padding: 24px;
+    background-color: #ffffff; /* 白色のカード風に見せる */
+    box-sizing: border-box;
+}
+
+/* 見出し：文字サイズ 1.4rem */
+h2 {
+    font-size: 1.4rem;
+    margin-top: 0;
+    margin-bottom: 24px;
+}
+
+/* リンク：文字色 #1a73e8 */
+a {
+    color: #1a73e8;
+    text-decoration: none;
+    transition: color 0.3s;
+
+}
+
+a:hover {
+    text-decoration: none; 
+    color: rgb(135, 167, 214);
+    
+}
+
+
+/*=================================
+   記事一覧画面（tasks.html）
+ =================================*/
+    .card-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.card-grid .card {
+    flex: 1 1 200px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgb(95, 88, 118);
+}
+
+.task-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px 0;
+}
+
+/* タスクの行：下に 1px solid #eee の区切り線 */
+.task-item {
+    border-bottom: 1px solid #eee;
+    padding: 12px 0;
+}
+
+.task-item label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+}
+
+
+/* ======================================
+   記事追加画面（newPost.html）
+   ====================================== */
+.form-group {
+    margin-bottom: 24px;
+}
+
+/* 入力欄 */
+.task-input {
+    width: 100%;
+    padding: 8px 12px;
+    font-size: 1rem;
+    border: 1px solid #dadce0;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* フォーカス時に青枠にする */
+/* .task-input:focus {
+    outline: none;
+    border-color: #1a73e8; 
+} */
+
+/* ボタンの並び */
+.form-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+/* 保存ボタン */
+.btn-submit {
+    background-color: #1a73e8;
+    color: white;
+    border: none;
+    padding: 8px 24px;
+    font-size: 1rem;
+    border-radius: 4px;
+}
+
+.btn-submit:hover {
+    background-color: #1557b0;
+}
+
+/* キャンセル */
+.link-cancel {
+    color: #5f6368; 
+}
