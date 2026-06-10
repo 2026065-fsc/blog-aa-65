@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>ブログ一覧</title></head>
+<body>
+
+<div th:replace="fragments/header :: body"></div>
+
+<h1>ブログ一覧</h1>
+
+<form method="get" action="/">
+    <input type="text" name="keyword" placeholder="キーワード" th:value="${keyword}">
+    <input type="text" name="author" placeholder="作者名" th:value="${author}">
+    <button type="submit">検索</button>
+</form>
+
+<hr>
+
+<div th:each="blog : ${blogs}">
+    <div style="border:1px solid #ccc; padding:10px; margin:10px;">
+        <h2>
+            <a th:href="@{/blog/{id}(id=${blog.id})}" th:text="${blog.title}"></a>
+        </h2>
+        <p>作者：<span th:text="${blog.author.displayName}"></span></p>
+        <p th:text="${#strings.substring(blog.content,0,30)} + '…'"></p>
+    </div>
+</div>
+
+</body>
+</html>
