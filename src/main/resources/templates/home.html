@@ -1,39 +1,30 @@
 <!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ホーム</title>
-</head>
-
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>ブログ一覧</title></head>
 <body>
-    <p>趣味でつながるブログアプリ</p>
-    <h1>Spring blog</h1>
-    <div>
-    <form action="/books" method="get">
-      <input type="text" name="keyword">
-      <button type="submit">検索</button>
-    </form>
-  </div>
-  
-    <ul class="article-ranking">
-        <h2>話題のカテゴリ</h2>
-        <li>1. </li>
-        <li>2. </li>
-        <li>3. </li>
-    </lul>
-    <ul class="article-ranking">
-        <h2>話題のユーザ</h2>
-        <li>1. </li>
-        <li>2. </li>
-        <li>3. </li>
-    </lul>
-    <ul class="article-ranking">
-        <h2>話題の記事</h2>
-        <li>1. </li>
-        <li>2. </li>
-        <li>3. </li>
-    </lul>
+
+<div th:replace="fragments/header :: body"></div>
+<p>趣味でつながるブログアプリ</p>
+<h1>Spring blog</h1>
+<h2>ブログ一覧</h2>
+
+<form method="get" action="/">
+    <input type="text" name="keyword" placeholder="キーワード" th:value="${keyword}">
+    <input type="text" name="author" placeholder="作者名" th:value="${author}">
+    <button type="submit">検索</button>
+</form>
+
+<hr>
+
+<div th:each="blog : ${blogs}">
+    <div style="border:1px solid #ccc; padding:10px; margin:10px;">
+        <h2>
+            <a th:href="@{/blog/{id}(id=${blog.id})}" th:text="${blog.title}"></a>
+        </h2>
+        <p>作者：<span th:text="${blog.author.displayName}"></span></p>
+        <p th:text="${#strings.substring(blog.content,0,30)} + '…'"></p>
+    </div>
+</div>
 
 </body>
 </html>

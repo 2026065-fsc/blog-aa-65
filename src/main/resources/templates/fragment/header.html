@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div style="background:#eee; padding:10px; margin-bottom:20px;">
+    <a href="/">ホーム</a> |
+    <a href="/post">新規投稿</a> |
+
+    <!-- ログインしている場合 -->
+    <span th:if="${#authentication.principal != null}">
+        ようこそ、
+        <a th:href="@{/account/{id}(id=${#authentication.principal.id})}"
+           th:text="${#authentication.principal.displayName}"></a>
+        さん |
+        <a href="/logout">ログアウト</a>
+    </span>
+
+    <!-- 未ログイン -->
+    <span th:if="${#authentication.principal == null}">
+        <a href="/login">ログイン</a> |
+        <a href="/register">アカウント作成</a>
+    </span>
+</div>
+
+</body>
+</html>

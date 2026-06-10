@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title th:text="${account.displayName}"></title></head>
+<body>
+
+<div th:replace="fragments/header :: body"></div>
+
+<h1 th:text="${account.displayName}"></h1>
+
+<img th:src="@{${account.imagePath}}" width="150" alt="プロフィール画像">
+
+<p th:text="${account.profileText}"></p>
+
+<a th:href="@{/account/{id}/edit(id=${account.id})}">プロフィール編集</a>
+
+<hr>
+
+<h2>投稿したブログ</h2>
+
+<div th:each="blog : ${blogs}">
+    <div style="border:1px solid #ccc; padding:10px; margin:10px;">
+        <h3>
+            <a th:href="@{/blog/{id}(id=${blog.id})}" th:text="${blog.title}"></a>
+        </h3>
+        <p th:text="${#strings.substring(blog.content,0,30)} + '…'"></p>
+    </div>
+</div>
+
+</body>
+</html>
