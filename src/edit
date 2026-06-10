@@ -1,0 +1,15 @@
+@GetMapping("/blog/{id}/edit")
+public String editForm(@PathVariable long id, Model model, HttpSession session){
+    Account loginUser = (Account) session.getAttribute("loginUser");
+    if (loginUser == null) return "redirect:/login";
+
+    Blog blog = blogService.getById(id);
+    if (blog == null) return "redirect:/";
+
+    if (!blog.getAuthorName().equals(loginUser.getUsername())) {
+        return "redirect:/";
+    }
+
+    model.addAttribute("blog", blog);
+    return "blog_edit";
+}
