@@ -16,85 +16,35 @@ body {
     box-sizing: border-box;
 }
 
-/* 見出し：文字サイズ 1.4rem */
-h2 {
-    font-size: 1.4rem;
-    margin-top: 0;
-    margin-bottom: 24px;
-}
-
-/* リンク：文字色 #1a73e8 */
-a {
-    color: #1a73e8;
-    text-decoration: none;
-    transition: color 0.3s;
-
-}
-
-a:hover {
-    text-decoration: none; 
-    color: rgb(135, 167, 214);
-    
-}
-
-
-/* 記事一覧画面（tasks.html）*/
-    .card-grid {
+/* 記事一覧画面(カード)*/
+.card-container {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
 }
-
-.card-grid .card {
+.blog-card {
     flex: 1 1 200px;
     background-color: white;
     padding: 20px;
-    border-radius: 8px;
+    border-radius:16px;
     box-shadow: 0 2px 8px rgb(95, 88, 118);
+    transition: transform 0.2s;
+}
+.blog-card:hover {
+    transform: translateY(-5px);
+}
+
+
+.blog-card a {
+    text-decoration: none;
+    color: #34302d;
+}
+.blog-card a:hover {
+    color: cadetblue;
 }
 
 
 /* 記事追加画面（newPost.html）*/
 .form-group {
     margin-bottom: 24px;
-}
-
-/* 入力欄 */
-.task-input {
-    width: 100%;
-    padding: 8px 12px;
-    font-size: 1rem;
-    border: 1px solid #dadce0;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-/* ボタンの並び */
-.form-actions {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-}
-
-/* 保存ボタン */
-.btn-submit {
-    background-color: #1a73e8;
-    color: white;
-    border: none;
-    padding: 8px 24px;
-    font-size: 1rem;
-    border-radius: 4px;
-}
-
-.btn-submit:hover {
-    background-color: #1557b0;
-}
-
-/* キャンセル */
-.link-cancel {
-    color: #5f6368; 
-}
-
-.site-header{
-    
 }
