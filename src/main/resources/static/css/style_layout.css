@@ -7,15 +7,6 @@ body {
     background-color: #f8f9fa; 
 }
 
-/* 本文領域：最大幅 640px、中央寄せ、内側に padding 24px */
-.container {
-    max-width: 640px;
-    margin: 0 auto;       /* 中央寄せ */
-    padding: 24px;
-    background-color: #ffffff; /* 白色のカード風に見せる */
-    box-sizing: border-box;
-}
-
 /* 記事一覧画面(カード)*/
 .card-container {
     display: flex;
