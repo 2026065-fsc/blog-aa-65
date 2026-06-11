@@ -22,19 +22,20 @@ public class LoginController {
         return "login";
     }
 
+
     @PostMapping("/login")
-    public String login(@ModelAttribute Account form, HttpSession session, Model model){
-
-        Account account = accountService.findByUsername(form.getUsername());
-
-        if (account == null || !account.getPassword().equals(form.getPassword())) {
-            model.addAttribute("error", "ユーザー名またはパスワードが違います");
+    public String login(@ModelAttribute AccountForm form, HttpSession session, Model model){
+        Optional<Account> accountOpt = accountService.findByUsername(form.getUsername());
+        if (accountOpt.isEmpty()){
+            model.addAttribute("error", "ログイン失敗");    //空の時　error:ログイン失敗　表示
             return "login";
         }
-
-        // ログイン成功 → セッションに保存
+        Account account = accountOpt.get();
+        if (!account.getPassword().equals(form.getPassword())){
+            model.addAttribute("error", "ログイン失敗");    //パスワード違うとき　error:ログイン失敗　表示
+            return "login";
+        }
         session.setAttribute("loginUser", account);
-
         return "redirect:/";
     }
 
