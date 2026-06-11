@@ -3,7 +3,7 @@ body {
     background-color: #fffcf9;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
-/*homes*/
+
 /* ヘッダー全体のレイアウト */
 .site-header {
     display: flex;/*display: flex :display:横並びになる */
@@ -47,4 +47,15 @@ hr{
     border-top: 1px solid #ddd;
     margin: 32px 0;
 }
+.nav-list {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    list-style: none;
+}
+
+.right-search {
+    margin-left: auto;
+}
+
 
