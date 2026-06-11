@@ -26,15 +26,16 @@ public class AccountRepository {
     }
 
     public Account findById(long id) {
-        for (Account a : accounts) {
-            if (a.getId() == id) return a;
+        for (Account acount : accounts) {
+            if (acount.getId() == id) return acount;
         }
         return null;
     }
 
     public Account findByUsername(String username) {
-        for (Account a : accounts) {
-            if (a.getUsername().equals(username)) return a;
+        for (Account acount : accounts) {
+            if (acount.getUsername().equals(username)) 
+                return acount;
         }
         return null;
     }
