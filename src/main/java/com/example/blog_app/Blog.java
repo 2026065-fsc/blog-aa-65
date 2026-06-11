@@ -8,16 +8,18 @@ public class Blog {    // ブログデータ
     private String category;
     private String createdAt;    //投稿日
     private Account authorName;
+    private long authorId;
 
     public Blog(){}
 
-    public Blog(long id, String title, String content, String category, String createdAt, Account authorName) {
+    public Blog(long id, String title, String content, String category, String createdAt, Account authorName, long authorId) {
         this.setId(id);
         this.setTitle(title);
         this.setContent(content);
         this.setCategory(category);
         this.setCreatedAt(createdAt);
         this.setAuthorName(authorName);
+        this.setAuthorId(authorId);
     }
     public long getId() { 
         return id;
@@ -55,4 +57,11 @@ public class Blog {    // ブログデータ
     public void setAuthor(Account authorName) { 
         this.authorName = authorName;
     }
+    public long getAuthorId() { 
+        return authorId; 
+    }
+    public void setAuthorId(long authorId) { 
+        this.authorId = authorId;
+    }
+
 }
