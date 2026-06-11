@@ -10,17 +10,18 @@
 
 <h1>アカウント作成</h1>
 
-<form method="post" action="/register" th:object="${account}">
-    <label>ユーザーID：</label>
-    <input type="text" th:field="*{username}" required><br><br>
+<form method="post" th:object="${accountForm}">
+
+    <label>ユーザー名：</label>
+    <input type="text" th:field="*{username}"><br>
 
     <label>パスワード：</label>
-    <input type="password" th:field="*{password}" required><br><br>
-
-    <label>表示名：</label>
-    <input type="text" th:field="*{displayName}"><br><br>
+    <input type="password" th:field="*{password}"><br>
+    <label>自己紹介：</label><br>
+    <textarea th:field="*{profileText}"></textarea><br>
 
     <button type="submit">登録</button>
+
 </form>
 
 </body>
