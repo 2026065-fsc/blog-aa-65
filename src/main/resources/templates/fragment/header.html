@@ -6,13 +6,13 @@
         <h1>Spring Blog</h1>
     </a>
     <nav class="header-link">
-        <ul>
+        <ul style="display:flex; align-items:center;">
             <li><a href="/">記事一覧</a></li>
             <li><a href="/post">投稿</a></li>
 
-            /*未ログイン時に表示する（ログイン＋アカウント作成）*/
+            /*未ログイン時に表示する（ログイン＋アカウント新規登録）*/
             <li th:if="${session.loginUser == null}">
-                <a href="/account/register">アカウント作成</a>
+                <a href="/account/register">新規登録</a>
             </li>
             <li th:if="${session.loginUser == null}">
                 <a href="/login">ログイン</a>
@@ -25,8 +25,17 @@
             <li th:if="${session.loginUser != null}">
                 <a href="/logout">ログアウト</a>
             </li>
+
+            /*検索欄*/
+            <li style="margin-left:auto;">
+                <form action="/" method="get">
+                    <input type="text" name="keyword" placeholder="キーワード検索">
+                    <button type="submit">🔍</button>
+                </form>
+            </li>
         </ul>
     </nav>
+    
 </header>
 </body>
 </html>
