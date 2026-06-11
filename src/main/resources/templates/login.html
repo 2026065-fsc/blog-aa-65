@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ブログホーム</title>
-    <form action="/login" method="post">
-        <p>ユーザー名：<input type="text" name="username"></p>
-        <p>パスワード：<input type="password" name="password"></p>
-
-        <p style="color:red;">[[${error}]]</p>
-
-        <button type="submit">ログイン</button>
-    </form>
+    <title>ログイン</title>
 </head>
 <body>
+<div th:replace="~{fragments/layout-header :: header_fragment}"></div>
+<h1>ログイン</h1>
+<form action="/login" method="post">
+    <p>アカウント名：<input type="text" name="username">ユーザー名入力</p>
+    <p>パスワード：<input type="password" name="password">パスワード入力</p>
+
+    <p style="color:red;" th:if="${error}" th:text="${error}"></p>
+    <button type="submit">ログイン</button>
+</form>
+</body>
+</html>
