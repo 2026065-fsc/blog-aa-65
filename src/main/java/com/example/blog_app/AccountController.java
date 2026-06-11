@@ -28,6 +28,19 @@ public class AccountController {
         model.addAttribute("account", accountOpt.get());
         return "account_page";
     }
+    
+    @GetMapping("/{id}")    //アカウントIDによる照合（検索）
+    public String accountPage(@PathVariable long id, Model model){
+        Optional<Account> accountOpt = accountService.findById(id);
+        if (accountOpt.isEmpty()){
+            return "redirect:/";
+        }
+    
+        Account account = accountOpt.get();
+        model.addAttribute("account", account);
+        model.addAttribute("blogs", blogService.getBlogsByAuthor(id));
+        return "account_page";
+}
 
     @GetMapping("/register")    //アカウント新規登録(register:登録)
     public String registerForm(Model model){
@@ -35,8 +48,6 @@ public class AccountController {
         model.addAttribute("accountForm", registerForm);
         return "register";
     }
-
-
  @PostMapping("/register")
     public String register(@ModelAttribute AccountForm form){
         Account account = new Account();　       // FormをAccountへ
