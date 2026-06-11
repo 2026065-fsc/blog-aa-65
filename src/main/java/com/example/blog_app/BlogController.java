@@ -33,8 +33,7 @@ public class BlogController {
             @RequestParam(required = false) String category,
             @RequestParam(required = false) String keyword,
             @RequestParam(required = false) String author,
-            @RequestParam(required = false) String keyword,
-            Model model){
+            @RequestParam(required = false) String keyword,Model model){
         
         if  (category != null && !category.isEmpty()) {    //カテゴリ検索
             model.addAttribute("blogs", blogService.searchByCategory(category));
