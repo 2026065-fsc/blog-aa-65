@@ -20,26 +20,39 @@ public class BlogController {
         this.blogService = blogService;
         this.accountService = accountService;
     }
-
-    // トップページ（一覧・検索）
-
+    
+    //トップページ
     @GetMapping("/")
-    public String index(@RequestParam(required = false) String keyword,
-                        @RequestParam(required = false) String author,
-                        Model model){
-
-        if (keyword != null && !keyword.isEmpty()) {
-            model.addAttribute("blogs", blogService.searchByKeyword(keyword));
-        } else if (author != null && !author.isEmpty()) {
-            model.addAttribute("blogs", blogService.searchByAuthor(author));
-        } else {
-            model.addAttribute("blogs", blogService.getAllBlogs());
-        }
-
+    public String home(){
         return "home";
     }
 
-    // 新規投稿フォーム
+    // 検索機能
+    @GetMapping("/blogs)
+    public String blogs(
+            @RequestParam(required = false) String category,
+            @RequestParam(required = false) String keyword,
+            @RequestParam(required = false) String author,
+            @RequestParam(required = false) String keyword,
+            Model model){
+        
+        if  (category != null && !category.isEmpty()) {    //カテゴリ検索
+            model.addAttribute("blogs", blogService.searchByCategory(category));
+
+        } else if (author != null && !author.isEmpty()) {    //作者検索
+            model.addAttribute("blogs", blogService.searchByAuthor(author));
+            
+        } else if  (keyword != null && !keyword.isEmpty()) {    //キーワード検索
+            model.addAttribute("blogs", blogService.searchByKeyword(keyword));
+            
+        } else {    //空の時の全表示
+            model.addAttribute("blogs", blogService.getAllBlogs());
+        }
+        return "blogs"; // 一覧ページ
+    }
+}
+
+    // 新規投稿処理
     @GetMapping("/post")
     public String postForm(Model model, HttpSession session){
         Account user = (Account) session.getAttribute("loginUser");
@@ -49,9 +62,6 @@ public class BlogController {
         model.addAttribute("blog", new Blog());
         return "blog_post";
     }
-
-
-    // 新規投稿処理
 
     @PostMapping("/post")
     public String postSubmit(@ModelAttribute Blog blog, HttpSession session){
