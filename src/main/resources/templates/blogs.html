@@ -21,17 +21,20 @@
 </form>
 
 <hr>
-<div/>
+<div>
 /* 0件表示 */
 <p th:if="${#lists.isEmpty(blogs)}">検索結果がありません</p>
 
 /* 一覧 （blogs）*/
-<tr th:each="blog : ${blogs}">
-        //タイトルクリックで詳細へ
-        <td><a th:href="@{/blog/{id}(id=${blog.id})}"th:text="${blog.category}">タイトル</a></td> 
-        <td>作者：<span th:text="${blog.authorName}">作者</span></td>
-        <td>投稿日：<span th:text="${blog.createdAt}">投稿日</span></td>
-</tr>
+    <table>
+    <tr><th>タイトル</th><th>作者</th><th>投稿日</th><th>カテゴリ</th></tr>
+    <tr th:each="blog : ${blogs}">
+        <td><a th:href="@{/blog/{id}(id=${blog.id})}"th:text="${blog.title}">タイトル</a></td> 
+        <td th:text="${blog.authorName}">作者</td>
+        <td th:text="${blog.category}">カテゴリ</td>
+        <td th:text="${blog.createdAt}">投稿日</td>
+    </tr>
+    </table>
 </div>
 </body>
 </html>
