@@ -1,22 +1,32 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
-
-<div>
-    <header class="site-header">
-    <a class="site-name" href="/"><h1>Spring Blog</h1></a>
-
+<header class="site-header">
+    <a class="site-name" href="/">
+        <h1>Spring Blog</h1>
+    </a>
     <nav class="header-link">
         <ul>
-            <li><a href="/blogs">記事一覧</a></li>
-            <li><a href="/blog_post">投稿</a></li>
-            <li></li><a href="/login">ログイン</a></li>
-            <!-- <li></li><a href="/logout">ログアウト</a></li> -->
-            <li></li> <a href="/register">アカウント作成</a></li>
+            <li><a href="/">記事一覧</a></li>
+            <li><a href="/post">投稿</a></li>
+
+            /*未ログイン時に表示する（ログイン＋アカウント作成）*/
+            <li th:if="${session.loginUser == null}">
+                <a href="/account/register">アカウント作成</a>
+            </li>
+            <li th:if="${session.loginUser == null}">
+                <a href="/login">ログイン</a>
+            </li>
+
+            /*ログイン中（アカウント名・ログアウト）*/
+            <li th:if="${session.loginUser != null}">
+                <span th:text="${session.loginUser.username}">ユーザー名</span>さん
+            </li>
+            <li th:if="${session.loginUser != null}">
+                <a href="/logout">ログアウト</a>
+            </li>
         </ul>
     </nav>
-
-</div>
-
+</header>
 </body>
 </html>
