@@ -1,7 +1,7 @@
 package com.example.blog_app;
 
-import java.util.List;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 @Service
 public class BlogService {
@@ -12,27 +12,23 @@ public class BlogService {
         this.blogRepository = blogRepository;
     }
 
-    public List<Blog> getAllBlogs(){
+    public List<Blog> getAllBlogs(){    // 全件取得
         return blogRepository.findAll();
     }
 
-    public Blog getById(long id){
+    public Blog getById(long id){    // 詳細
         return blogRepository.findById(id);
     }
 
-    public void save(Blog blog){
-        blogRepository.save(blog);
+    public List<Blog> searchByKeyword(String keyword){    // キーワード検索
+        return blogRepository.findByKeyword(keyword);
     }
 
-    public void delete(long id){
-        blogRepository.deleteById(id);
+    public List<Blog> searchByCategory(String category){    // カテゴリ検索
+        return blogRepository.findByCategory(category);
     }
 
-    public List<Blog> searchByKeyword(String keyword){
-        return blogRepository.findByTitleOrContent(keyword);
-    }
-
-    public List<Blog> searchByAuthor(String name){
-        return blogRepository.findByAuthorName(name);
+    public List<Blog> searchByAuthor(String author){    // 作者検索
+        return blogRepository.findByAuthor(author);
     }
 }
