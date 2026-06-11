@@ -2,28 +2,36 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ホーム</title>
+    <title>ブログ一覧</title>
 </head>
 <body>
-    <div th:replace="~{fragments/style_layout :: header_fragment}"></div>
 
-    <h2>ブログ一覧</h2>
+<div th:replace="~{fragments/layout-header :: header_fragment}"></div>
 
-    <p th:if="${#lists.isEmpty(blogs)}">記事がまだ登録されていません。</p>
-    
-    <table th:unless="${#lists.isEmpty(blogs)}">
-        <tbody>
-        <div class="card-grid">
-        <div class="card">
-            <tr th:each="blog : ${blogs}">
-                <td><a th:href="@{/blogs/{id}(id=${blog.id})}" th:text="${blog.title}">タイトル</a></td>
-                <td th:text="${blog.content}">本文の一部分</td>
-                <td th:text="${blog.author}">作者</td>
-            </tr>
-          </div>
-        </div>
-        </tbody>
-    </table> 
+<h1>ブログ一覧</h1>
+
+/*  検索フォーム */
+<form method="get" action="/blogs">
+
+    <input type="text" name="keyword" placeholder="キーワード">
+    <input type="text" name="category" placeholder="カテゴリ">
+    <input type="text" name="author" placeholder="作者">
+    <button type="submit">検索</button>
+
+</form>
+
+<hr>
+<div/>
+/* 0件表示 */
+<p th:if="${#lists.isEmpty(blogs)}">検索結果がありません</p>
+
+/* 一覧 （blogs）*/
+<tr th:each="blog : ${blogs}">
+        //タイトルクリックで詳細へ
+        <td><a th:href="@{/blog/{id}(id=${blog.id})}"th:text="${blog.category}">タイトル</a></td> 
+        <td>作者：<span th:text="${blog.authorName}">作者</span></td>
+        <td>投稿日：<span th:text="${blog.createdAt}">投稿日</span></td>
+</tr>
+</div>
 </body>
 </html>
