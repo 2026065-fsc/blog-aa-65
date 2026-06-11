@@ -1,39 +1,23 @@
 package com.example.blog_app;
 
-public class Blog {
 
+public class Blog {    // ブログデータ
     private long id;
     private String title;
-    private String content;        // 本文
-    private String category;        // カテゴリ
-    private String createdAt;        // 投稿日
-    private Account author;
-
-    public Blog(){}
-    
-    public Blog(long id, String title, String content, String category, String createdAt, Account author)  {
-  package com.example.blog_app;
-
-// ブログデータを表すクラス
-public class Blog {
-
-    private long id;
-    private String title;
-    private String content;
+    private String content;    //本文
     private String category;
-    private String createdAt;
-    private Account author;
+    private String createdAt;    //投稿日
+    private Account authorName;
 
     public Blog(){}
 
-    // コンストラクタ（setter使用）
-    public Blog(long id, String title, String content, String category, String createdAt, Account author) {
+    public Blog(long id, String title, String content, String category, String createdAt, Account authorName) {
         this.setId(id);
         this.setTitle(title);
         this.setContent(content);
         this.setCategory(category);
         this.setCreatedAt(createdAt);
-        this.setAuthor(author);
+        this.setAuthorName(authorName);
     }
     public long getId() { 
         return id;
@@ -68,7 +52,7 @@ public class Blog {
     public Account getAuthor() { 
         return author;
     }
-    public void setAuthor(Account author) { 
-        this.author = author;
+    public void setAuthor(Account authorName) { 
+        this.authorName = authorName;
     }
 }
