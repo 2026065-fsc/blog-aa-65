@@ -4,7 +4,6 @@ import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 
-
 @Repository
 public class BlogRepository {    // ブログデータをDBから取得する
 
@@ -17,7 +16,7 @@ public class BlogRepository {    // ブログデータをDBから取得する
     public List<Blog> findAll(){    //全件取得
 
         return jdbcClient.sql("
-            SELECT blogs.id,blogs.title,blogs.content,blogs.category,blogs.created_at,
+            SELECT blogs.id,blogs.title,blogs.content,blogs.category,blogs.created_at,blogs.author_id
                     accounts.username AS authorName    //ユーザ名を投稿者名とする
             FROM blogs
             JOIN accounts ON blogs.author_id = accounts.id    //ブログとアカウントを連携する
@@ -28,7 +27,7 @@ public class BlogRepository {    // ブログデータをDBから取得する
 
     public Blog findById(long id){    //IDで取得（詳細）
         return jdbcClient.sql("
-            SELECT blogs.id,blogs.title,blogs.content,blogs.category,blogs.created_at,accounts.username AS authorName
+            SELECT blogs.id,blogs.title,blogs.content,blogs.category,blogs.created_at,blogs.author_id, accounts.username AS authorName
             FROM blogs
             JOIN accounts ON blogs.author_id = accounts.id
             WHERE blogs.id = :id
@@ -38,16 +37,48 @@ public class BlogRepository {    // ブログデータをDBから取得する
         .single();
     }
 
-    public List<Blog> searchByKeyword(String keyword){    // キーワード
-        return blogRepository.findByKeyword(keyword);
+
+    // キーワード
+    public List<Blog> findByKeyword(String keyword){
+
+        return jdbcClient.sql("
+            SELECT blogs.id,blogs.title,blogs.content,blogs.category,blogs.created_at,blogs.author_id, accounts.username AS authorName
+            FROM blogs
+            JOIN accounts ON blogs.author_id = accounts.id
+            WHERE blogs.title LIKE :keyword
+               OR blogs.content LIKE :keyword
+        """)
+        .param("keyword", "%" + keyword + "%")
+        .query(Blog.class)
+        .list();
     }
 
-    public List<Blog> searchByCategory(String category){    // カテゴリ
-        return blogRepository.findByCategory(category);
+    // カテゴリ
+    public List<Blog> findByCategory(String category){
+
+        return jdbcClient.sql("""
+            SELECT blogs.id,blogs.title,blogs.content,blogs.category,blogs.created_at,blogs.author_id, accounts.username AS authorName
+            FROM blogs
+            JOIN accounts ON blogs.author_id = accounts.id
+            WHERE blogs.category = :category
+        """)
+        .param("category", category)
+        .query(Blog.class)
+        .list();
     }
 
-    public List<Blog> searchByAuthor(String author){    // 作者
-        return blogRepository.findByAuthor(author);
+    // 作者
+    public List<Blog> findByAuthor(String author){
+
+        return jdbcClient.sql("""
+            SELECT blogs.id,blogs.title,blogs.content,blogs.category,blogs.created_at,blogs.author_id, accounts.username AS authorName
+            FROM blogs
+            JOIN accounts ON blogs.author_id = accounts.id
+            WHERE accounts.username = :author
+        """)
+        .param("author", author)
+        .query(Blog.class)
+        .list();
     }
 
     public void save(Blog blog, long authorId){    //投稿
