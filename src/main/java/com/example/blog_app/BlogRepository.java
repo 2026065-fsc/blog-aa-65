@@ -1,61 +1,53 @@
 package com.example.blog_app;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
+import java.util.List;
+
 
 @Repository
-public class BlogRepository {
+public class BlogRepository {    // ブログデータをDBから取得する
 
-    private final List<Blog> blogs = new ArrayList<>();
-    // private long nextId = 1;
+    private final JdbcClient jdbcClient;
 
-    public void save(Blog blog) {
-            for (int i = 0; i < blogs.size(); i++) {
-                if (blogs.get(i).getId() == blog.getId()) {
-                    blogs.set(i, blog);
-                    return;
-                }
-            }
-        }
-
-    public Blog findById(long id) {
-        for (Blog blog : blogs) {
-            if (blog.getId() == id) return blog;
-        }
-        return null;
+    public BlogRepository(JdbcClient jdbcClient){
+        this.jdbcClient = jdbcClient;
     }
 
-    public List<Blog> findAll() {
-        return blogs;
+    public List<Blog> findAll(){    //全件取得
+
+        return jdbcClient.sql("
+            SELECT blogs.id,blogs.title,blogs.content,blogs.category,blogs.created_at,
+                    accounts.username AS authorName    //ユーザ名を投稿者名とする
+            FROM blogs
+            JOIN accounts ON blogs.author_id = accounts.id    //ブログとアカウントを連携する
+        ")
+        .query(Blog.class)
+        .list();
     }
 
-    public void deleteById(long id) {
-        Blog target = null;
-        for (Blog blog : blogs) {
-            if (blog.getId() == id) target = blog;
-        }
-        if (target != null) blogs.remove(target);
+    public Blog findById(long id){    //IDで取得
+        return jdbcClient.sql("
+            SELECT blogs.id,blogs.title,blogs.content,blogs.category,blogs.created_at,accounts.username AS authorName
+            FROM blogs
+            JOIN accounts ON blogs.author_id = accounts.id
+            WHERE blogs.id = :id
+        ")
+        .param("id", id)
+        .query(Blog.class)
+        .single();
     }
 
-    public List<Blog> findByTitleOrContent(String keyword) {
-        List<Blog> result = new ArrayList<>();
-        for (Blog blog : blogs) {
-            if ((blog.getTitle() != null && blog.getTitle().contains(keyword)) ||
-                (blog.getContent() != null && blog.getContent().contains(keyword))) {
-                result.add(blog);
-            }
-        }
-        return result;
-    }
-
-    public List<Blog> findByAuthorName(String name) {
-        List<Blog> result = new ArrayList<>();
-        for (Blog blog : blogs) {
-            if (blog.getAuthorName() != null && blog.getAuthorName().contains(name)) {
-                result.add(blog);
-            }
-        }
-        return result;
+    public void save(Blog blog, long authorId){    //投稿
+        jdbcClient.sql("
+            INSERT INTO blogs (title, content, category, created_at, author_id)
+            VALUES (:title, :content, :category, :createdAt, :authorId)
+        ")
+        .param("title", blog.getTitle())
+        .param("content", blog.getContent())
+        .param("category", blog.getCategory())
+        .param("createdAt", blog.getCreatedAt())
+        .param("authorId", authorId)
+        .update();
     }
 }
