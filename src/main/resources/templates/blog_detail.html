@@ -3,30 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title th:text="${blog.title}"></title>
+    <title th:text="${blog.title}"></title>
 </head>
 <body>
 
-<div th:replace="fragments/header :: body"></div>
-
-<h1 th:text="${blog.title}"></h1>
-
-<p>
-    作者：
-    <a th:href="@{/account/{id}(id=${blog.author.id})}"
-       th:text="${blog.author.displayName}"></a>
-</p>
-
-<p>投稿日：<span th:text="${blog.createdAt}"></span></p>
-
+<div th:replace="~{fragments/layout-header :: header_fragment}"></div>
+    
+<div th:each="blog : ${blogs}">
+    <h1 th:text="${blog.title}">タイトル</h1>
+    <p>作者：<span th:href="@{/account/{id}(id=${blog.authorId})}"th:text="${blog.authorName}">作者</span></p>
+    <p>投稿日：<span th:text="${blog.createdAt}">投稿日</span></p>
+    <p>カテゴリ：<span th:text="${blog.category}">カテゴリ</span></p>
+    <hr>
+    <p th:text="${blog.content}">本文</p>
 <hr>
-
-<p th:text="${blog.content}"></p>
-<a th:if="${#authentication.principal != null 
-           and blog.author.username == #authentication.principal.username}"
-   th:href="@{/blog/{id}/edit(id=${blog.id})}">
-    編集する
-</a>
-
+</div>
 </body>
 </html>
