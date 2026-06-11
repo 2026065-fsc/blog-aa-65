@@ -26,7 +26,7 @@ public class BlogRepository {    // ブログデータをDBから取得する
         .list();
     }
 
-    public Blog findById(long id){    //IDで取得
+    public Blog findById(long id){    //IDで取得（詳細）
         return jdbcClient.sql("
             SELECT blogs.id,blogs.title,blogs.content,blogs.category,blogs.created_at,accounts.username AS authorName
             FROM blogs
@@ -36,6 +36,18 @@ public class BlogRepository {    // ブログデータをDBから取得する
         .param("id", id)
         .query(Blog.class)
         .single();
+    }
+
+    public List<Blog> searchByKeyword(String keyword){    // キーワード
+        return blogRepository.findByKeyword(keyword);
+    }
+
+    public List<Blog> searchByCategory(String category){    // カテゴリ
+        return blogRepository.findByCategory(category);
+    }
+
+    public List<Blog> searchByAuthor(String author){    // 作者
+        return blogRepository.findByAuthor(author);
     }
 
     public void save(Blog blog, long authorId){    //投稿
