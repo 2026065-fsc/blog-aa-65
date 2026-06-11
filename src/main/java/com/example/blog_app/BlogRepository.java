@@ -37,6 +37,17 @@ public class BlogRepository {    // ブログデータをDBから取得する
         .single();
     }
 
+public List<Blog> findByAuthorId(long authorId){ //アカウントIDを取得（アカウント検索用）
+    return jdbcClient.sql("
+        SELECT SELECT blogs.id,blogs.title,blogs.content,blogs.category,blogs.created_at,blogs.author_id, accounts.username AS authorName
+        FROM blogs
+        JOIN accounts ON blogs.author_id = accounts.id
+        WHERE blogs.author_id = :authorId
+    ")
+    .param("authorId", authorId)
+    .query(Blog.class)
+    .list();
+}
 
     // キーワード
     public List<Blog> findByKeyword(String keyword){
@@ -56,12 +67,12 @@ public class BlogRepository {    // ブログデータをDBから取得する
     // カテゴリ
     public List<Blog> findByCategory(String category){
 
-        return jdbcClient.sql("""
+        return jdbcClient.sql("
             SELECT blogs.id,blogs.title,blogs.content,blogs.category,blogs.created_at,blogs.author_id, accounts.username AS authorName
             FROM blogs
             JOIN accounts ON blogs.author_id = accounts.id
             WHERE blogs.category = :category
-        """)
+        ")
         .param("category", category)
         .query(Blog.class)
         .list();
@@ -70,12 +81,12 @@ public class BlogRepository {    // ブログデータをDBから取得する
     // 作者
     public List<Blog> findByAuthor(String author){
 
-        return jdbcClient.sql("""
+        return jdbcClient.sql("
             SELECT blogs.id,blogs.title,blogs.content,blogs.category,blogs.created_at,blogs.author_id, accounts.username AS authorName
             FROM blogs
             JOIN accounts ON blogs.author_id = accounts.id
             WHERE accounts.username = :author
-        """)
+        ")
         .param("author", author)
         .query(Blog.class)
         .list();
