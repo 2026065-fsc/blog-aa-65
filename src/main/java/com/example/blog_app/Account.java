@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Account {
-
     private long id;
     private String username;
     private String password;
@@ -14,7 +13,15 @@ public class Account {
 
     private List<Blog> blogs = new ArrayList<>();
 
-    public Account() {}
+    public Account(){}
+    public Account(long id,String username,String password,String displayName,String profileText,String imagePath) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.displayName = displayName;
+        this.profileText = profileText;
+        this.imagePath = imagePath;
+    }
 
     public long getId() { return id; }
     public void setId(long id) { this.id = id; }

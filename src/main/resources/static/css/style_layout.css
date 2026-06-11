@@ -1,6 +1,4 @@
-/*===========
-   全体設計
-===========*/
+/*全体設計*/
 body {
     font-family: sans-serif;
     color: #202124;
@@ -40,9 +38,7 @@ a:hover {
 }
 
 
-/*=================================
-   記事一覧画面（tasks.html）
- =================================*/
+/* 記事一覧画面（tasks.html）*/
     .card-grid {
     display: flex;
     flex-wrap: wrap;
@@ -57,29 +53,8 @@ a:hover {
     box-shadow: 0 2px 8px rgb(95, 88, 118);
 }
 
-.task-list {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 24px 0;
-}
 
-/* タスクの行：下に 1px solid #eee の区切り線 */
-.task-item {
-    border-bottom: 1px solid #eee;
-    padding: 12px 0;
-}
-
-.task-item label {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    cursor: pointer;
-}
-
-
-/* ======================================
-   記事追加画面（newPost.html）
-   ====================================== */
+/* 記事追加画面（newPost.html）*/
 .form-group {
     margin-bottom: 24px;
 }
@@ -93,12 +68,6 @@ a:hover {
     border-radius: 4px;
     box-sizing: border-box;
 }
-
-/* フォーカス時に青枠にする */
-/* .task-input:focus {
-    outline: none;
-    border-color: #1a73e8; 
-} */
 
 /* ボタンの並び */
 .form-actions {
@@ -124,4 +93,8 @@ a:hover {
 /* キャンセル */
 .link-cancel {
     color: #5f6368; 
+}
+
+.site-header{
+    
 }

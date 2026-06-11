@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><meta charset="UTF-8"><title>ブログ一覧</title></head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ブログホーム</title>
+</head>
 <body>
 
-<div th:replace="fragments/header :: body"></div>
+<div th:replace="~{fragments/layout-header :: header_fragment}"></div>
 <p>趣味でつながるブログアプリ</p>
 <h1>Spring blog</h1>
 
-<h2>ブログ一覧</h2>
 <form method="get" action="/">
     <input type="text" name="keyword" placeholder="キーワード" th:value="${keyword}">
     <input type="text" name="author" placeholder="作者名" th:value="${author}">

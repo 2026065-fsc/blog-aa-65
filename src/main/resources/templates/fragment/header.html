@@ -2,24 +2,20 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 
-<div style="background:#eee; padding:10px; margin-bottom:20px;">
-    <a href="/">ホーム</a> |
-    <a href="/post">新規投稿</a> |
+<div>
+    <header class="site-header">
+    <a class="site-name" href="/"><h1>Spring Blog</h1></a>
 
-    <!-- ログインしている場合 -->
-    <span th:if="${#authentication.principal != null}">
-        ようこそ、
-        <a th:href="@{/account/{id}(id=${#authentication.principal.id})}"
-           th:text="${#authentication.principal.displayName}"></a>
-        さん |
-        <a href="/logout">ログアウト</a>
-    </span>
+    <nav class="header-link">
+        <ul>
+            <li><a href="/blogs">記事一覧</a></li>
+            <li><a href="/blog_post">投稿</a></li>
+            <li></li><a href="/login">ログイン</a></li>
+            <li></li><a href="/logout">ログアウト</a></li>
+            <li></li> <a href="/register">アカウント作成</a></li>
+        </ul>
+    </nav>
 
-    <!-- 未ログイン -->
-    <span th:if="${#authentication.principal == null}">
-        <a href="/login">ログイン</a> |
-        <a href="/register">アカウント作成</a>
-    </span>
 </div>
 
 </body>

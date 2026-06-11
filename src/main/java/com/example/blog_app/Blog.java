@@ -9,23 +9,38 @@ public class Blog {
     private String createdAt;
     private String authorName;
 
-    public Blog() {}
+    public Blog(){}
+    
+    public Blog(long id,String title,String content,String category,String createdAt,String authorName) {
+        this.title = title;
+        this.content = content;
+        this.category = category;
+        this.createdAt = createdAt;
+        this.authorName = authorName;
+    }
 
-    public long getId() { return id; }
-    public void setId(long id) { this.id = id; }
+    public long getId() { 
+        return id; 
+    }
 
-    public String getTitle() { return title; }
-    public void setTitle(String title) { this.title = title; }
+    public String getTitle() { 
+        return title;
+     }
 
-    public String getContent() { return content; }
-    public void setContent(String content) { this.content = content; }
 
-    public String getCategory() { return category; }
-    public void setCategory(String category) { this.category = category; }
+    public String getContent() { 
+        return content;
+     }
 
-    public String getCreatedAt() { return createdAt; }
-    public void setCreatedAt(String createdAt) { this.createdAt = createdAt; }
+    public String getCategory() { 
+        return category;
+     }
 
-    public String getAuthorName() { return authorName; }
-    public void setAuthorName(String authorName) { this.authorName = authorName; }
+    public String getCreatedAt() { 
+        return createdAt;
+     }
+
+    public String getAuthorName() { 
+        return authorName;
+     }
 }

@@ -1,15 +1,14 @@
 package com.example.blog_app;
 
-
-import java.security.Principal;
-
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
+import jakarta.servlet.http.HttpSession;
+
 
 @Controller
 public class BlogController {
@@ -21,6 +20,8 @@ public class BlogController {
         this.blogService = blogService;
         this.accountService = accountService;
     }
+
+    // トップページ（一覧・検索）
 
     @GetMapping("/")
     public String index(@RequestParam(required = false) String keyword,
@@ -35,70 +36,47 @@ public class BlogController {
             model.addAttribute("blogs", blogService.getAllBlogs());
         }
 
-        return "index";
+        return "home";
     }
 
+    // 新規投稿フォーム
     @GetMapping("/post")
-    public String postForm(Model model){
+    public String postForm(Model model, HttpSession session){
+        Account user = (Account) session.getAttribute("loginUser");
+        if (user == null) 
+            return "/login";
+
         model.addAttribute("blog", new Blog());
         return "blog_post";
     }
 
-    @PostMapping("/post")
-    public String postSubmit(@ModelAttribute Blog blog, Principal principal){
-        String username = principal.getName();
-        Account account = accountService.findByUsername(username);
 
-        blog.setAuthorName(username);
+    // 新規投稿処理
+
+    @PostMapping("/post")
+    public String postSubmit(@ModelAttribute Blog blog, HttpSession session){
+        Account user = (Account) session.getAttribute("loginUser");
+        if (user == null) 
+            return "/login";
+
+        // blog.getAuthorName(user.getUsername());
         blogService.save(blog);
 
-        if (account != null) {
-            account.getBlogs().add(blog);
-            accountService.save(account);
-        }
+        user.getBlogs().add(blog);
+        accountService.save(user);
 
         return "redirect:/";
     }
 
+
+    // 詳細ページ
     @GetMapping("/blog/{id}")
     public String detail(@PathVariable long id, Model model){
         Blog blog = blogService.getById(id);
         if (blog == null) return "redirect:/";
+
         model.addAttribute("blog", blog);
         return "blog_detail";
     }
 
-    @GetMapping("/blog/{id}/edit")
-    public String editForm(@PathVariable long id, Model model, Principal principal){
-        Blog blog = blogService.getById(id);
-        if (blog == null) return "redirect:/";
-        if (!blog.getAuthorName().equals(principal.getName())) return "redirect:/";
-
-        model.addAttribute("blog", blog);
-        return "blog_edit";
-    }
-
-    @PostMapping("/blog/{id}/edit")
-    public String editSubmit(@PathVariable long id, @ModelAttribute Blog form, Principal principal){
-        Blog blog = blogService.getById(id);
-        if (blog == null) return "redirect:/";
-        if (!blog.getAuthorName().equals(principal.getName())) return "redirect:/";
-
-        blog.setTitle(form.getTitle());
-        blog.setCategory(form.getCategory());
-        blog.setContent(form.getContent());
-
-        blogService.save(blog);
-        return "redirect:/blog/" + id;
-    }
-
-    @PostMapping("/blog/{id}/delete")
-    public String delete(@PathVariable long id, Principal principal){
-        Blog blog = blogService.getById(id);
-        if (blog == null) return "redirect:/";
-        if (!blog.getAuthorName().equals(principal.getName())) return "redirect:/";
-
-        blogService.delete(id);
-        return "redirect:/";
-    }
 }

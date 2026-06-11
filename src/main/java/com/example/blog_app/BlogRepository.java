@@ -2,20 +2,15 @@ package com.example.blog_app;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class BlogRepository {
 
     private final List<Blog> blogs = new ArrayList<>();
-    private long nextId = 1;
+    // private long nextId = 1;
 
     public void save(Blog blog) {
-        if (blog.getId() == 0) {
-            blog.setId(nextId++);
-            blogs.add(blog);
-        } else {
             for (int i = 0; i < blogs.size(); i++) {
                 if (blogs.get(i).getId() == blog.getId()) {
                     blogs.set(i, blog);
@@ -23,11 +18,10 @@ public class BlogRepository {
                 }
             }
         }
-    }
 
     public Blog findById(long id) {
-        for (Blog b : blogs) {
-            if (b.getId() == id) return b;
+        for (Blog blog : blogs) {
+            if (blog.getId() == id) return blog;
         }
         return null;
     }
@@ -38,18 +32,18 @@ public class BlogRepository {
 
     public void deleteById(long id) {
         Blog target = null;
-        for (Blog b : blogs) {
-            if (b.getId() == id) target = b;
+        for (Blog blog : blogs) {
+            if (blog.getId() == id) target = blog;
         }
         if (target != null) blogs.remove(target);
     }
 
     public List<Blog> findByTitleOrContent(String keyword) {
         List<Blog> result = new ArrayList<>();
-        for (Blog b : blogs) {
-            if ((b.getTitle() != null && b.getTitle().contains(keyword)) ||
-                (b.getContent() != null && b.getContent().contains(keyword))) {
-                result.add(b);
+        for (Blog blog : blogs) {
+            if ((blog.getTitle() != null && blog.getTitle().contains(keyword)) ||
+                (blog.getContent() != null && blog.getContent().contains(keyword))) {
+                result.add(blog);
             }
         }
         return result;
@@ -57,9 +51,9 @@ public class BlogRepository {
 
     public List<Blog> findByAuthorName(String name) {
         List<Blog> result = new ArrayList<>();
-        for (Blog b : blogs) {
-            if (b.getAuthorName() != null && b.getAuthorName().contains(name)) {
-                result.add(b);
+        for (Blog blog : blogs) {
+            if (blog.getAuthorName() != null && blog.getAuthorName().contains(name)) {
+                result.add(blog);
             }
         }
         return result;
