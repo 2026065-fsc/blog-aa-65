@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/account")
@@ -18,46 +19,33 @@ public class AccountController {
         this.accountService = accountService;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}")    //アカウントの詳細
     public String accountPage(@PathVariable long id, Model model){
-        Account account = accountService.getById(id);
-        if (account == null) return "redirect:/";
-        model.addAttribute("account", account);
-        model.addAttribute("blogs", account.getBlogs());
+        Optional<Account> accountOpt = accountService.findById(id);
+        if (accountOpt.isEmpty()){
+            return "redirect:/";
+        }
+        model.addAttribute("account", accountOpt.get());
         return "account_page";
     }
 
-    @GetMapping("/{id}/edit")
-    public String editPage(@PathVariable long id, Model model){
-        Account account = accountService.getById(id);
-        if (account == null) return "redirect:/";
-        model.addAttribute("account", account);
-        return "account_edit";
-    }
-
-    @PostMapping("/{id}/edit")
-    public String update(@PathVariable long id, @ModelAttribute Account form){
-        Account account = accountService.getById(id);
-        if (account == null) return "redirect:/";
-
-        account.setDisplayName(form.getDisplayName());
-        account.setProfileText(form.getProfileText());
-        account.setImagePath(form.getImagePath());
-
-        accountService.save(account);
-        return "redirect:/account/" + id;
-    }
-
-    @GetMapping("/register")
+    @GetMapping("/register")    //アカウント新規登録(register:登録)
     public String registerForm(Model model){
-        model.addAttribute("account", new Account());
+        AccountForm registerForm = new AccountForm(); 
+        model.addAttribute("accountForm", registerForm);
         return "register";
     }
 
-    @PostMapping("/register")
-    public String register(@ModelAttribute Account account){
-        account.setPassword("{noop}" + account.getPassword());
+
+ @PostMapping("/register")
+    public String register(@ModelAttribute AccountForm form){
+        Account account = new Account();　       // FormをAccountへ
+        account.setUsername(form.getUsername());
+        account.setPassword(form.getPassword());
+        account.setProfileText(form.getProfileText());
         accountService.save(account);
         return "redirect:/login";
     }
+
 }
+
