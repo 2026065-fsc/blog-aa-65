@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>ブログ一覧</title>
+    <link rel="stylesheet" th:href="@{/css/style_layout.css}">
 </head>
 <body>
 
@@ -11,7 +12,7 @@
 <h1>ブログ一覧</h1>
 
 /*  検索フォーム */
-<form method="get" action="/blogs">
+<form method="get" action="@{/blogs}">
 
     <input type="text" name="keyword" placeholder="キーワード">
     <input type="text" name="category" placeholder="カテゴリ">
@@ -21,20 +22,18 @@
 </form>
 
 <hr>
-<div>
+
 /* 0件表示 */
 <p th:if="${#lists.isEmpty(blogs)}">検索結果がありません</p>
 
 /* 一覧 （blogs）*/
-    <table>
-    <tr><th>タイトル</th><th>作者</th><th>投稿日</th><th>カテゴリ</th></tr>
-    <tr th:each="blog : ${blogs}">
-        <td><a th:href="@{/blog/{id}(id=${blog.id})}"th:text="${blog.title}">タイトル</a></td> 
-        <td th:text="${blog.authorName}">作者</td>
-        <td th:text="${blog.category}">カテゴリ</td>
-        <td th:text="${blog.createdAt}">投稿日</td>
-    </tr>
-    </table>
+<div class="card-container">
+    <div class="blog-card" th:each="blog : ${blogs}">
+        <h3><a th:href="@{/blog/{id}(id=${blog.id})}"th:text="${blog.title}">タイトル</a></h3> 
+        <p th:text="${blog.authorName}">作者</p>
+        <p th:text="${blog.category}">カテゴリ</p>
+        <p th:text="${blog.createdAt}">投稿日</p>
+    </div>
 </div>
 </body>
 </html>
