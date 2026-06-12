@@ -1,61 +1,41 @@
+/* 全体設計 */
 body {
-    color:#34302d;
-    background-color: #fffcf9;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}
-
-/* ヘッダー全体のレイアウト */
-.site-header {
-    display: flex;/*display: flex :display:横並びになる */
-    justify-content: space-between; /*space-between: 両端に寄せて、残りの間隔を均等に分配。*/
-    align-items: center; /* 横並びの縦方向の真ん中揃え */
-}
-
-/* サイト名 */
-.site-name {
-    color: #6db33f; 
-    font-size: 1.6rem;
-    font-weight: bold;
-    text-decoration: none; /* リンクの下線を消す */
-
-    border-left: 8px solid #6db33f;/*border-left で左辺に線*/
-    padding-left: 16px;/*テキストを線から離す*/
-}
-.site-name h1 {
+    font-family: sans-serif;
+    color: #202124;
     margin: 0;
-    font-size: 1.6rem;
-}
-
-.header-link ul {
-    display: flex;/*display: flex :display:横並びになる */
-    gap: 16pt;     /*gap: 16px:各項目の間に16pxの間隔を入れる*/  
-    list-style: none;
     padding: 0;
-    margin: 0;
+    background-color: #f8f9fa; 
 }
 
-.header-link a {
-    color: #34302d;
-    text-decoration: none; /* リンクの下線をなくす */
-    transition: color 0.3s;
+/* 記事一覧画面(カード)*/
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
 }
-.header-link a:hover{
+.blog-card {
+    flex: 1 1 200px;
+    background-color: white;
+    padding: 20px;
+    border-radius:16px;
+    box-shadow: 0 2px 8px rgb(95, 88, 118);
+    transition: transform 0.2s;
+}
+.blog-card:hover {
+    transform: translateY(-5px);
+}
+
+
+.blog-card a {
+    text-decoration: none;
+    color: #34302d;
+}
+.blog-card a:hover {
     color: cadetblue;
 }
-hr{
-    border: none;
-    border-top: 1px solid #ddd;
-    margin: 32px 0;
-}
-.nav-list {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    list-style: none;
-}
-
-.right-search {
-    margin-left: auto;
-}
 
 
+/* 記事追加画面（newPost.html）*/
+.form-group {
+    margin-bottom: 24px;
+}
