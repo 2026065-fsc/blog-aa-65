@@ -1,5 +1,0 @@
-<a th:if="${#authentication.principal != null 
-           and blog.author.username == #authentication.principal.username}"
-   th:href="@{/blog/{id}/edit(id=${blog.id})}">
-    編集する
-</a>
