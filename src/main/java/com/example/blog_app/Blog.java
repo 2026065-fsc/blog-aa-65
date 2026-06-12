@@ -51,10 +51,10 @@ public class Blog {    // ブログデータ
     public void setCreatedAt(String createdAt) { 
         this.createdAt = createdAt;
     }
-    public Account getAuthor() { 
-        return author;
+    public Account getAuthorName() { 
+        return authorName;
     }
-    public void setAuthor(Account authorName) { 
+    public void setAuthorName(Account authorName) { 
         this.authorName = authorName;
     }
     public long getAuthorId() { 
