@@ -12,7 +12,7 @@ public class BlogService {
         this.blogRepository = blogRepository;
     }
 
-    public List<Blog> getAllBlogs(){    // 全件取得
+    public List<Blog> getAllBlogs(){    // 全て取得
         return blogRepository.findAll();
     }
 
@@ -31,4 +31,8 @@ public class BlogService {
     public List<Blog> searchByAuthor(String author){    // 作者検索
         return blogRepository.findByAuthor(author);
     }
+     public void save(Blog blog, long authorId){
+        blogRepository.save(blog, authorId);
+    }
+
 }
