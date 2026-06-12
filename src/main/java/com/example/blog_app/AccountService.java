@@ -1,6 +1,7 @@
 package com.example.blog_app;
 
 import org.springframework.stereotype.Service;
+import java.util.Optional;
 
 @Service
 public class AccountService {
@@ -15,11 +16,14 @@ public class AccountService {
         accountRepository.save(account);
     }
 
-    public Account findByUsername(String username){
-        return accountRepository.findByUsername(username);
+    public Optional<Account> findByUsername(String username){
+        Account account = accountRepository.findByUsername(username);
+        // nullかもしれないので Optional に包んであげる
+        return Optional.ofNullable(account); 
     }
 
-    public Account getById(long id){
-        return accountRepository.findById(id);
+    public Optional<Account> findById(long id){
+        Account account = accountRepository.findById(id);
+        return Optional.ofNullable(account);
     }
 }
