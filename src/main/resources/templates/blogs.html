@@ -7,11 +7,11 @@
 </head>
 <body>
 
-<div th:replace="~{fragments/layout-header :: header_fragment}"></div>
+<div th:replace="~{fragments/header :: header_fragment}"></div>
 
 <h1>ブログ一覧</h1>
 
-/*  検索フォーム */
+<!--   検索フォーム  -->
 <form method="get" action="@{/blogs}">
 
     <input type="text" name="keyword" placeholder="キーワード">
@@ -23,10 +23,10 @@
 
 <hr>
 
-/* 0件表示 */
+<!--  0件表示 -->
 <p th:if="${#lists.isEmpty(blogs)}">検索結果がありません</p>
 
-/* 一覧 （blogs）*/
+<!--  一覧 （blogs） -->
 <div class="card-container">
     <div class="blog-card" th:each="blog : ${blogs}">
         <h3><a th:href="@{/blog/{id}(id=${blog.id})}"th:text="${blog.title}">タイトル</a></h3> 
