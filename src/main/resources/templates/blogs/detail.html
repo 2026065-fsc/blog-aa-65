@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<div th:replace="~{fragments/layout-header :: header_fragment}"></div>
+<div th:replace="~{fragments/header :: header_fragment}"></div>
     
 <div th:each="blog : ${blogs}">
     <h1 th:text="${blog.title}">タイトル</h1>
