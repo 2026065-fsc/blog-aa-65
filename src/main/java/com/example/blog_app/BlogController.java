@@ -28,12 +28,11 @@ public class BlogController {
     }
 
     // 検索機能
-    @GetMapping("/blogs)
+    @GetMapping("/blogs")
     public String blogs(
             @RequestParam(required = false) String category,
             @RequestParam(required = false) String keyword,
-            @RequestParam(required = false) String author,
-            @RequestParam(required = false) String keyword,Model model){
+            @RequestParam(required = false) String author,Model model){
         
         if  (category != null && !category.isEmpty()) {    //カテゴリ検索
             model.addAttribute("blogs", blogService.searchByCategory(category));
@@ -49,7 +48,6 @@ public class BlogController {
         }
         return "blogs"; // 一覧ページ
     }
-}
 
     // 新規投稿処理
     @GetMapping("/post")
@@ -66,10 +64,10 @@ public class BlogController {
     public String postSubmit(@ModelAttribute Blog blog, HttpSession session){
         Account user = (Account) session.getAttribute("loginUser");
         if (user == null) 
-            return "/login";
+            return "redirect:/login";
 
-        // blog.getAuthorName(user.getUsername());
-        blogService.save(blog);
+        blog.setAuthorName(user);
+        blogService.save(blog, user.getId());
 
         user.getBlogs().add(blog);
         accountService.save(user);
