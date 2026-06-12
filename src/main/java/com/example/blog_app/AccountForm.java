@@ -15,14 +15,14 @@ public class AccountForm {  //フォーム入力
 
     public String getPassword() { 
       return password;
-                                }
+    }
     public void setPassword(String password) { 
       this.password = password;
     }
 
     public String getProfileText() { 
       return profileText;
-                                   }
+    }
     public void setProfileText(String profileText) { 
       this.profileText = profileText;
     }
