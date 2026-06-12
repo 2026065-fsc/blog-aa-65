@@ -1,32 +1,32 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ja" th:fragment="header_fragment">
+<head xmlns:th="http://www.thymeleaf.org">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style-header.css">
+    <title>共通ヘッダー</title>
+</head>
 <body>
-<header class="site-header" th:fragment="header_fragment">
-    <a class="site-name" href="/">
-        <h1>Spring Blog</h1>
-    </a>
+    <header class="site-header">
+    <a class="site-name" href="/"><h1>Spring Blog</h1></a>
     <nav class="header-link">
        <ul class="nav-list">
-            <li><a href="/">記事一覧</a></li>
+            <li><a href="/blogs">記事一覧</a></li>
             <li><a href="/post">投稿</a></li>
 
-            /*未ログイン時に表示する（ログイン＋アカウント新規登録）*/
-            <li th:if="${session.loginUser == null}">
-                <a href="/account/register">新規登録</a>
+            <!-- 未ログイン時に表示する（ログイン＋アカウント新規登録） -->
+            <li th:if="${session.loginUser == null}"><a href="/account/register">新規登録</a>
             </li>
-            <li th:if="${session.loginUser == null}">
-                <a href="/login">ログイン</a>
+            <li th:if="${session.loginUser == null}"><a href="/login">ログイン</a>
             </li>
 
-            /*ログイン中（アカウント名・ログアウト）*/
-            <li th:if="${session.loginUser != null}">
-                <span th:text="${session.loginUser.username}">ユーザー名</span>さん
+            <!-- ログイン中（アカウント名・ログアウト） -->
+            <li th:if="${session.loginUser != null}"><span th:text="${session.loginUser.username}">ユーザー名</span>さん
             </li>
-            <li th:if="${session.loginUser != null}">
-                <a href="/logout">ログアウト</a>
+            <li th:if="${session.loginUser != null}"><a href="/logout">ログアウト</a>
             </li>
 
-            /*検索欄*/
+            <!-- 検索欄 -->
            <li class="right-search">
                 <form action="/blogs" method="get">
                     <input type="text" name="keyword" placeholder="キーワード検索">
