@@ -14,21 +14,14 @@ import java.util.Optional;
 public class AccountController {
 
     private final AccountService accountService;
+    private final BlogService blogService;
 
-    public AccountController(AccountService accountService){
+    public AccountController(AccountService accountService, BlogService blogService){
         this.accountService = accountService;
-    }
-
-    @GetMapping("/{id}")    //アカウントの詳細
-    public String accountPage(@PathVariable long id, Model model){
-        Optional<Account> accountOpt = accountService.findById(id);
-        if (accountOpt.isEmpty()){
-            return "redirect:/";
-        }
-        model.addAttribute("account", accountOpt.get());
-        return "account_page";
+        this.blogService = blogService;
     }
     
+
     @GetMapping("/{id}")    //アカウントIDによる照合（検索）
     public String accountPage(@PathVariable long id, Model model){
         Optional<Account> accountOpt = accountService.findById(id);
@@ -50,7 +43,7 @@ public class AccountController {
     }
  @PostMapping("/register")
     public String register(@ModelAttribute AccountForm form){
-        Account account = new Account();　       // FormをAccountへ
+        Account account = new Account();       // FormをAccountへ
         account.setUsername(form.getUsername());
         account.setPassword(form.getPassword());
         account.setProfileText(form.getProfileText());
