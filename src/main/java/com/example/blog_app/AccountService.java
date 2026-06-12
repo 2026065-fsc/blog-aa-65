@@ -18,7 +18,6 @@ public class AccountService {
 
     public Optional<Account> findByUsername(String username){
         Account account = accountRepository.findByUsername(username);
-        // nullかもしれないので Optional に包んであげる
         return Optional.ofNullable(account); 
     }
 
